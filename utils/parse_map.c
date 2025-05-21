@@ -1,5 +1,5 @@
 
-#include "../include/so_long.h"
+#include "../so_long.h"
 
 char	*get_map(int fd)
 {
@@ -63,14 +63,14 @@ char	**parse_map(int fd, t_data *data)
 	i = 1;
 	while (data->map[i + 1])
 	{
-		if (!ft_check_col(data->map[i], data->content.wall, data))
+		if (!check_col(data->map[i], data->content.wall, data))
 			return (free_map(data));
 		if (!ft_check_other(data->map[i], &(data->content)))
 			return (free_map(data));
 		i++;
 	}
 	data->height = i + 1;
-	if (!ft_check_line(data->map[i], data->content.wall))
+	if (!check_line(data->map[i], data->content.wall))
 		return (free_map(data));
 
 	return (data->map);

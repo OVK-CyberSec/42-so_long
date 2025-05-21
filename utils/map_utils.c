@@ -1,3 +1,4 @@
+#include "../so_long.h"
 
 int	check_col(char *map_line, char wall, t_data *data)
 {

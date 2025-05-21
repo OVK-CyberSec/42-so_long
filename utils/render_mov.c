@@ -1,3 +1,5 @@
+#include "../so_long.h"
+
 void	render_top(t_data *data)
 {
 	int		pos_x;

@@ -1,4 +1,4 @@
-#include "../includes/so_long.h"
+#include "../so_long.h"
 
 int	chk_collect(t_data *data)
 {

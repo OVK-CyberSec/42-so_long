@@ -1,4 +1,4 @@
-
+#include "../so_long.h"
 
 int	is_wall_line(char *str)
 {
