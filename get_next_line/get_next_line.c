@@ -38,7 +38,7 @@ char	*create_line(int fd, char *line)
 
 char	*get_next_line(int fd)
 {
-	static char	*line;
+	char	*line;
 	char		*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
