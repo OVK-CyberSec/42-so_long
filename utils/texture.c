@@ -62,3 +62,4 @@ int	key_press(int keysym, t_data *data)
 		render_down(data);
 	return (0);
 }
+

@@ -9,7 +9,7 @@
 /*   Updated: 2025/04/18 18:07:53 by mohifdi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "../so_long.h"
 #include "get_next_line.h"
 
 char	*create_line(int fd, char *line)
