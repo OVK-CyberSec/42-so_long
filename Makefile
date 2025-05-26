@@ -28,7 +28,7 @@ C_FILE		=	map.c				\
 				texture.c			\
 				utils.c				\
 
-SRC_DIR		=	./core/
+SRC_DIR		=	./src/
 
 INC_DIR		=	./includes/
 
