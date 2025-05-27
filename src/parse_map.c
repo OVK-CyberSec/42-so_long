@@ -3,34 +3,36 @@
 
 char	*get_map(int fd)
 {
-	char	*line;
-	char	*map;
-	char 	*tmp;
+	char	*line_map;
+	char	*buff;
+	char	*tmp;
+	int		char_count;
 
-	map = ft_strdup("");
-	if (!map)
+	buff = ft_strdup("");
+	if (!buff)
 		return (NULL);
-	while ((line = get_next_line(fd)) != NULL)
+
+	line_map = NULL;
+	while ((char_count = gnl(fd, &line_map)) > 0)
 	{
-		if (!line)
-    		return (NULL);
-		tmp = map;
-		map = ft_strjoin(map, line);
-		free(line);
-		if (!map)
-		{
-			free(tmp);
+		tmp = buff;
+		buff = ft_strjoin(buff, line_map);
+		free(tmp);
+		free(line_map);
+		line_map = NULL;
+		if (!buff)
 			return (NULL);
-		}
 	}
-	if (*map == '\0')
+	free(line_map);
+	if (char_count == -1)
 	{
-		free(map);
-		ft_error("Error\nEmpty or invalid map\n");
+		free(buff);
+		ft_error("Error\nWrong lecture map\n");
 		return (NULL);
 	}
-	return (map);
+	return (buff);
 }
+
 
 void	*free_map(t_data *data)
 {

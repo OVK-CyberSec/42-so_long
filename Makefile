@@ -8,15 +8,9 @@ LIBFT_PATH	=	./libft/
 
 LIBFT_FILE	=	libft.a
 
-GLN_PATH	=	./get_next_line/
-
-GLN_FILE	=	gln.a
-
 MLX_FILE	=	libmlx.a
 
 LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT_FILE))
-
-GLN_LIB		=	$(addprefix $(GLN_PATH), $(GLN_FILE))
 
 MLX_FLAG	=	-lX11 -lXext
 
@@ -50,11 +44,6 @@ OBJ			=	$(SRC:.c=.o)
 
 all: $(NAME)
 
-gln:
-	@echo "\033[0;33m\nCOMPILING GLN $(GLN_PATH)\n"
-	@make -C $(GLN_PATH)
-	@echo "\033[1;32mGLN_lib created\n"
-
 lib:
 	@echo "\033[0;33m\nCOMPILING LIBFT $(LIBFT_PATH)\n"
 	@make -C $(LIBFT_PATH)
@@ -65,16 +54,15 @@ mlx:
 	@make -sC $(MLX_PATH)
 	@echo "\033[1;32mMLX_lib created\n"
 
-$(NAME): lib mlx gln $(OBJ)
+$(NAME): lib mlx $(OBJ)
 	@echo "\033[0;33m\nCOMPILING SO_LONG...\n"
-	$(CC) $(OBJ) $(GLN_LIB) $(LIBFT_LIB) $(MLX_EX) -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT_LIB) $(MLX_EX) -o $(NAME)
 	@echo "\033[1;32m./so_long created\n"
 
 clean:
 	@echo "\033[0;31mCleaning object files...\n"
 	@find $(SRC_DIR) -name '*.o' -delete
 	@make clean -sC $(LIBFT_PATH)
-	@make clean -sC $(GLN_PATH)
 	@make clean -sC $(MLX_PATH)
 	@echo "\033[1;32mDone\n"
 
@@ -82,7 +70,6 @@ fclean: clean
 	@echo "\033[0;31mDeleting so_long executable..."
 	@rm -f $(NAME)
 	@make fclean -C $(LIBFT_PATH)
-	@make fclean -C $(GLN_PATH)
 	@echo "\033[1;32mDone\n"
 
 re: fclean all
