@@ -5,19 +5,23 @@ char	*get_map(int fd)
 {
 	char	*line;
 	char	*map;
-	char	*tmp;
+	char 	*tmp;
 
 	map = ft_strdup("");
 	if (!map)
 		return (NULL);
 	while ((line = get_next_line(fd)) != NULL)
 	{
+		if (!line)
+    		return (NULL);
 		tmp = map;
 		map = ft_strjoin(map, line);
-		free(tmp);
 		free(line);
 		if (!map)
+		{
+			free(tmp);
 			return (NULL);
+		}
 	}
 	if (*map == '\0')
 	{
@@ -65,7 +69,7 @@ char	**parse_map(int fd, t_data *data)
 	{
 		if (!check_col(data->map[i], data->content.wall, data))
 			return (free_map(data));
-		if (!ft_check_other(data->map[i], &(data->content)))
+		if (!check_exeption(data->map[i], &(data->content)))
 			return (free_map(data));
 		i++;
 	}
@@ -95,7 +99,7 @@ char	**map_core(char **str, t_data *data)
 		if ((data->content.count_c == 0 || data->content.count_e != 1
 				|| data->content.count_p != 1) && data->map != NULL)
 		{
-			ft_free_map(data);
+			free_map(data);
 			return (ft_error(
 					"Error\nNeed 1 Player/Exit and at least 1 Object\n"));
 		}

@@ -1,8 +1,9 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../libft/includes/libft.h"
-# include "../minilibx-linux/mlx.h"
+# include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
+# include "minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -58,7 +59,7 @@ typedef struct data_s
 	int		count;
 }				t_data;
 
-int		ft_strchr(char *str, char *cmp);
+char		*ft_strchr(const char *str, int cmp);
 void	*ft_error(char *str);
 int		is_wall_line(char *str);
 
@@ -69,13 +70,15 @@ int		chk_map(char **argv);
 
 int		check_col(char *map_line, char col, t_data *data);
 int		check_line(char *map_line, char wall);
-int		check_other(char *map_line, t_cnt *content);
-void	ft_check_content(t_data *data);
-int		ft_check_format(char **map);
+int		check_exeption(char *map_line, t_cnt *content);
+void	check_content(t_data *data);
+int		check_format(char **map);
 int		chk_collect(t_data *data);
 
 void	set_img(t_data *data);
 void	set_content(t_cnt *content);
+int		check_dimension(char **map);
+void	*free_map(t_data *data);
 
 void	core_render(t_data *data);
 int		render(t_data *data);

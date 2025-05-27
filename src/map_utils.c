@@ -34,7 +34,7 @@ int	check_line(char *map_line, char wall)
 	return (1);
 }
 
-int	check_errors(char *map_line, t_cnt *content)
+int	check_exeption(char *map_line, t_cnt *content)
 {
 	int		i;
 
