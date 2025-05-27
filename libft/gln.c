@@ -2,12 +2,21 @@
 
 char	*ft_stradd(char *str, char buff)
 {
-	int		i;
+	int		i = 0;
 	char	*ret;
 
-	i = 0;
+	if (!str)
+	{
+		ret = (char *)malloc(2 * sizeof(char));
+		if (!ret)
+			return (NULL);
+		ret[0] = buff;
+		ret[1] = '\0';
+		return (ret);
+	}
+
 	ret = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2));
-	if (ret == NULL)
+	if (!ret)
 		return (NULL);
 	while (str[i])
 	{
@@ -19,6 +28,7 @@ char	*ft_stradd(char *str, char buff)
 	ret[++i] = '\0';
 	return (ret);
 }
+
 
 int	gnl(int fd, char **str)
 {
