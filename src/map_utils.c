@@ -41,7 +41,7 @@ int	check_exeption(char *map_line, t_cnt *content)
 	i = 0;
 	while (map_line[i])
 	{
-		if (content->count_e != 1 || content->count_p != 1)
+		if (content->count_e > 1 || content->count_p > 1)
 		{
 			ft_error("Error\nWrong number of player or exit\n");
 			return (0);
@@ -84,20 +84,25 @@ void	check_content(t_data *data)
 
 int	check_dimension(char **map)
 {
-	int y;
-	size_t expected_len;
+	int		y;
+	int		x;
+	int		count_x;
 
-	if (!map || !map[0])
-		return (0);
-	expected_len = ft_strlen(map[0]);
-	y = 1;
-	while (map[y])
+	x = 0;
+	y = 0;
+	count_x = 0;
+	while (map[0][count_x])
+		count_x++;
+	while (map[y] != NULL)
 	{
-		if (ft_strlen(map[y]) != expected_len)
+		while (map[y][x])
+			x++;
+		if (x != count_x)
 		{
 			ft_error("Error\nMap must be a rectangle or a square\n");
 			return (0);
 		}
+		x = 0;
 		y++;
 	}
 	return (1);

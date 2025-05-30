@@ -1,104 +1,59 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 16:59:01 by mohifdi           #+#    #+#             */
-/*   Updated: 2025/04/11 18:50:47 by mohifdi          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-#include "libft.h"
-int	is_separator(char c, char sep)
-{
-	return (c == sep);
-}
 
-int	count_words(const char *str, char sep)
+#include "libft.h"
+
+static int	ft_charcpt(char *str, char chr)
 {
 	int	i;
-	int	words;
+	int	ret;
 
 	i = 0;
-	words = 0;
+	ret = 0;
 	while (str[i])
 	{
-		if (!is_separator(str[i], sep))
-		{
-			words++;
-			while (str[i] && !is_separator(str[i], sep))
-				i++;
-		}
-		else
-			i++;
+		if (str[i] == chr)
+			ret++;
+		i++;
 	}
-	return (words);
+	return (ret);
 }
 
-char	*word_splitter(char *str, char sep)
+static int	ft_strnchr(char *str, char sep)
 {
-	char	*word;
-	int		i;
+	int	i;
 
 	i = 0;
-	while (str[i] && !is_separator(str[i], sep))
-		i++;
-	word = (char *) malloc(sizeof(char) * (i + 1));
-	if (!word)
-		return (NULL);
-	i = 0;
-	while (str[i] && !is_separator(str[i], sep))
+	while (str[i])
 	{
-		word[i] = str[i];
+		if (str[i] == sep)
+			return (i);
 		i++;
 	}
-	word[i] = '\0';
-	return (word);
+	return (i);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *str, char sep)
 {
 	int		i;
-	int		j;
-	char	**words;
+	int		y;
+	int		cpt;
+	char	**ret;
 
 	i = 0;
-	j = 0;
-	words = (char **) malloc(sizeof(char *) * (count_words(s, c) + 1));
-	if (!words)
+	y = 0;
+	ret = (char **)malloc(sizeof(char *) * (ft_charcpt(str, sep) + 1));
+	if (ret == NULL)
 		return (NULL);
-	while (s[i])
+	while (str[i])
 	{
-		if (!is_separator(s[i], c))
-		{
-			words[j++] = word_splitter((char *)&s[i], c);
-			while (s[i] && !is_separator(s[i], c))
-				i++;
-		}
+		cpt = ft_strnchr(&str[i], sep);
+		ret[y] = ft_strncpy(&str[i], cpt);
+		if (str[i + cpt] != '\0')
+			i += (cpt + 1);
 		else
-			i++;
+			i += cpt;
+		y++;
 	}
-	words[j] = 0;
-	return (words);
+	ret[y] = NULL;
+	free(str);
+	return (ret);
 }
-/*
-int main(void)
-{
-	char *str = "Ceci est un test !";
-	char sep = ' ';
-	char **result = ft_split(str, sep);
-	int i = 0;
-
-	printf("Résultat de ft_split(\"%s\", '%c'):\n", str, sep);
-	while (result[i])
-	{
-		printf("Mot %d : %s\n", i, result[i]);
-		free(result[i]); // Libère chaque mot
-		i++;
-	}
-	free(result); // Libère le tableau de pointeurs
-
-	return 0;
-}
-*/
