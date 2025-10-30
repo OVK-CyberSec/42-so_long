@@ -58,6 +58,8 @@ typedef struct data_s
 	int		count;
 }				t_data;
 
+int	check_path_valid(t_data *data);
+
 char		*ft_strchr(const char *str, int cmp);
 void	*ft_error(char *str);
 int		is_wall_line(char *str);

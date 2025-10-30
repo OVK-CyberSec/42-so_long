@@ -27,6 +27,7 @@ SL_FILE		=	map_utils.c				\
 				presets.c				\
 				texture.c			\
 				utils.c				\
+				flood_fill.c		\
 				../so_long.c		
 
 SRC_DIR		=	./src/
