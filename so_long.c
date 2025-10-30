@@ -14,11 +14,11 @@ int	main(int argc, char **argv)
 	data.mlx_ptr = mlx_init();
 	set_content(&(data.content));
 
-	data.map = map_core(argv, &data); // argv est correct ici
+	data.map = map_core(argv, &data);
 	if (!data.map)
 		end(&data);
 
-	check_path_valid(&data); // flood fill
+	check_path_valid(&data);
 
 	set_img(&data);
 	core_render(&data);
