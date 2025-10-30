@@ -61,6 +61,11 @@ typedef struct data_s
 char		*ft_strchr(const char *str, int cmp);
 void	*ft_error(char *str);
 int		is_wall_line(char *str);
+static void	flood_fill(t_data *data, t_pos curr, bool **visited);
+static bool	check_accessibility(t_data *data, bool **visited);
+static void	free_visited(bool **visited, int height);
+static t_pos	find_player_position(t_data *data);
+
 
 int		is_wall_line(char *str);
 char	*get_map(int fd);
@@ -77,6 +82,7 @@ int		chk_collect(t_data *data);
 void	set_img(t_data *data);
 void	set_content(t_cnt *content);
 int		check_dimension(char **map);
+int	check_playable_map(t_data *data);
 void	*free_map(t_data *data);
 
 void	core_render(t_data *data);
