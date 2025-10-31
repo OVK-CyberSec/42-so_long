@@ -107,3 +107,36 @@ int	check_dimension(char **map)
 	}
 	return (1);
 }
+
+int	check_playable_map(t_data *data)
+{
+	t_pos	player;
+	bool	**visited;
+	int		i;
+	int		result;
+
+	// Trouver la position du joueur
+	player = find_player_position(data);
+	if (player.x == -1 || player.y == -1)
+		return (0);
+
+	// Allouer et initialiser le tableau visited
+	visited = malloc(sizeof(bool *) * data->height);
+	i = 0;
+	while (i < data->height)
+	{
+		visited[i] = ft_calloc(data->width, sizeof(bool));
+		i++;
+	}
+
+	// Lancer le flood fill depuis la position du joueur
+	flood_fill(data, player, visited);
+
+	// Vérifier l'accessibilité
+	result = check_accessibility(data, visited);
+
+	// Nettoyer la mémoire
+	free_visited(visited, data->height);
+
+	return (result);
+}
