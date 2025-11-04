@@ -58,6 +58,10 @@ char	**parse_map(int fd, t_data *data)
 		return (free_map(data));
 	if (!(check_line(data->map[0], data->content.wall)))
 		return (free_map(data));
+	if (!(check_playable_map(data))){
+		return (free_map(data));
+	}
+
 	while (data->map[i] != NULL)
 	{
 		if (!(check_col(data->map[i], data->content.wall, data)))
