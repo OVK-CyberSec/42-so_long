@@ -15,7 +15,7 @@ void	set_content(t_cnt *content)
 
 void	set_img(t_data *data)
 {
-	data->img.height = 80;
+	data->img.height = 2000;
 	data->img.width = 80;
 	data->img.floor = "./assets/floor.xpm";
 	data->img.wall = "./assets/wall.xpm";
