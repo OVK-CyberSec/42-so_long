@@ -6,10 +6,11 @@
 /*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 17:05:07 by mohifdi           #+#    #+#             */
-/*   Updated: 2025/04/11 17:05:56 by mohifdi          ###   ########.fr       */
+/*   Updated: 2025/11/07 20:04:33 by mohifdi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
+
 char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
 	size_t	i;
@@ -29,21 +30,3 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 	}
 	return (0);
 }
-
-/*
-int main() {
-    const char *haystack = "Bonjour tout le monde";
-    const char *needle = "tout";
-    size_t len = 5;
-
-    char *result = strnstr(haystack, needle, len);
-
-    if (result != NULL) {
-        printf("Sous-chaîne trouvée : \"%s\"\n", result);
-    } else {
-        printf("Sous-chaîne non trouvée.\n");
-    }
-
-    return 0;
-}
-*/

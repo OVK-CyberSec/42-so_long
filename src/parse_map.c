@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 19:46:21 by mohifdi           #+#    #+#             */
+/*   Updated: 2025/11/07 19:33:57 by mohifdi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../so_long.h"
 
@@ -23,14 +34,11 @@ char	*get_map(int fd)
 			char_count = gnl(fd, &line_map);
 			tmp_buff = buff;
 		}
-		//printf("%s",buff);
 		return (buff);
 	}
 	ft_error("Error\nWrong lecture map\n");
 	return (NULL);
 }
-
-
 
 void	*free_map(t_data *data)
 {
@@ -78,13 +86,11 @@ char	**map_core(char **str, t_data *data)
 	size_t	len;
 
 	data->map = NULL;
-
 	if (!str || !str[1])
 		return (ft_error("Error\nMissing file path\n"));
 	len = ft_strlen(str[1]);
 	if (len < 4 || ft_strncmp(str[1] + len - 4, ".ber", 4) != 0)
 		return (ft_error("Error\nInvalid file extension\n"));
-
 	fd = open(str[1], O_RDONLY);
 	if (fd < 0)
 		return (ft_error("Error\nFailed to open file\n"));

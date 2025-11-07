@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 20:00:08 by mohifdi           #+#    #+#             */
+/*   Updated: 2025/11/07 20:07:45 by mohifdi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -58,9 +70,10 @@ typedef struct data_s
 	int		count;
 }				t_data;
 
-int	check_path_valid(t_data *data);
+int		check_path_valid(t_data *data);
+char	**copy_map(t_data *data);
 
-char		*ft_strchr(const char *str, int cmp);
+char	*ft_strchr(const char *str, int cmp);
 void	*ft_error(char *str);
 int		is_wall_line(char *str);
 
@@ -94,5 +107,9 @@ void	print_img(t_data *data, void *img, int x, int y);
 int		key_press(int keysym, t_data *data);
 int		chk_collect(t_data *data);
 int		end(t_data *data);
+int		print_err(int id);
+void	update_tile(t_data *d, int y, int x, int on_exit);
+void	handle_exit(t_data *d, int y, int x, int on_exit);
+void	move_player(t_data *d, int dx, int dy);
 
 #endif

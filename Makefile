@@ -1,77 +1,54 @@
 NAME		=	so_long
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror
 
-CC			=	clang
 
-FLAG		=	-Wall -Wextra -Werror
 
-LIBFT_PATH	=	./libft/
+SRC_DIR		=	src
+LIBFT_DIR	=	libft
+MLX_DIR		=	minilibx-linux
 
-LIBFT_FILE	=	libft.a
 
-MLX_FILE	=	libmlx.a
 
-LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT_FILE))
 
-MLX_FLAG	=	-lX11 -lXext
-
-MLX_PATH	=	./minilibx-linux/
-
-MLX_LIB		=	$(addprefix $(MLX_PATH), $(MLX_FILE))
-
-MLX_EX		=	$(MLX_LIB) $(MLX_FLAG)
-
-SL_FILE		=	map_utils.c				\
-				parse_map.c		\
-				render.c			\
-				render_mv.c		\
-				presets.c				\
-				texture.c			\
-				utils.c				\
-				flood_fill.c		\
-				../so_long.c		
-
-SRC_DIR		=	./src/
-
-INC_DIR		=	./includes/
-
-SRC			=	$(addprefix $(SRC_DIR),$(SL_FILE))
-
-SRC_ALL		=	$(SL_FILE) 
+SRC			=	$(SRC_DIR)/map_utils.c \
+				$(SRC_DIR)/parse_map.c \
+				$(SRC_DIR)/render.c \
+				$(SRC_DIR)/render_mv.c \
+				$(SRC_DIR)/render_mv2.c \
+				$(SRC_DIR)/presets.c \
+				$(SRC_DIR)/texture.c \
+				$(SRC_DIR)/utils.c \
+				$(SRC_DIR)/flood_fill.c \
+				$(SRC_DIR)/flood_fill2.c \
+				so_long.c
 
 OBJ			=	$(SRC:.c=.o)
 
-.c.o:
-	$(CC) $(FLAG) -c $< -o $@
+
+
+LIBFT		=	$(LIBFT_DIR)/libft.a
+MLX_LIB		=	$(MLX_DIR)/libmlx.a
+MLX_FLAGS	=	-L$(MLX_DIR) -lmlx -lX11 -lXext -lm
+
+
+
 
 all: $(NAME)
 
-lib:
-	@echo "\033[0;33m\nCOMPILING LIBFT $(LIBFT_PATH)\n"
-	@make -C $(LIBFT_PATH)
-	@echo "\033[1;32mLIBFT_lib created\n"
-
-mlx:
-	@echo "\033[0;33m\nCOMPILING MLX LIB $(MLX_PATH)...\n"
-	@make -sC $(MLX_PATH)
-	@echo "\033[1;32mMLX_lib created\n"
-
-$(NAME): lib mlx $(OBJ)
-	@echo "\033[0;33m\nCOMPILING SO_LONG...\n"
-	$(CC) $(OBJ) $(LIBFT_LIB) $(MLX_EX) -o $(NAME)
-	@echo "\033[1;32m./so_long created\n"
+$(NAME): $(OBJ)
+	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(MLX_DIR)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 
 clean:
-	@echo "\033[0;31mCleaning object files...\n"
-	@find $(SRC_DIR) -name '*.o' -delete
-	@make clean -sC $(LIBFT_PATH)
-	@make clean -sC $(MLX_PATH)
-	@echo "\033[1;32mDone\n"
+	rm -f $(OBJ)
+	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) clean -C $(MLX_DIR)
 
 fclean: clean
-	@echo "\033[0;31mDeleting so_long executable..."
-	@rm -f $(NAME) so_long.o
-	@make fclean -C $(LIBFT_PATH)
-	@echo "\033[1;32mDone\n"
+	rm -f $(NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 

@@ -1,35 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_mv.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 19:46:35 by mohifdi           #+#    #+#             */
+/*   Updated: 2025/11/07 19:59:00 by mohifdi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
-static void	move_player(t_data *d, int dx, int dy)
+void	update_tile(t_data *d, int y, int x, int on_exit)
 {
-	int	x = d->pos.x / d->img.height;
-	int	y = d->pos.y / d->img.width;
-	char	next = d->map[y + dy][x + dx];
-	int		on_exit = (d->map[y][x] == d->content.exit);
+	if (on_exit)
+		d->map[y][x] = d->content.exit;
+	else
+		d->map[y][x] = d->content.space;
+}
 
-	if (next == d->content.wall)
-		return;
-	if (next == d->content.exit)
+void	handle_exit(t_data *d, int y, int x, int on_exit)
+{
+	if (chk_collect(d) == 0)
 	{
-		if (chk_collect(d) == 0)
-		{
-			printf("Félicitations ! Gagné en %d coups !\n", ++d->count);
-			end(d);
-		}
-		else
-			d->map[y][x] = on_exit ? d->content.exit : d->content.space;
+		d->count++;
+		ft_printf("Félicitations ! Gagné en %d coups !\n", d->count);
+		end(d);
+		return ;
 	}
+	update_tile(d, y, x, on_exit);
+}
+
+void	move_player(t_data *d, int dx, int dy)
+{
+	int		x;
+	int		y;
+	char	next;
+	int		on_exit;
+
+	x = d->pos.x / d->img.height;
+	y = d->pos.y / d->img.width;
+	next = d->map[y + dy][x + dx];
+	on_exit = (d->map[y][x] == d->content.exit);
+	if (next == d->content.wall)
+		return ;
+	if (next == d->content.exit)
+		handle_exit(d, y, x, on_exit);
 	else
 	{
-		d->map[y][x] = on_exit ? d->content.exit : d->content.space;
+		update_tile(d, y, x, on_exit);
 		d->map[y + dy][x + dx] = d->content.player;
 	}
 	d->pos.x += dx * d->img.height;
 	d->pos.y += dy * d->img.width;
-	printf("count: %d\n", ++d->count);
+	d->count++;
+	ft_printf("count: %d\n", d->count);
 }
-
-void	render_top(t_data *d){move_player(d,0,-1);}
-void	render_right(t_data *d){move_player(d,1,0);}
-void	render_left(t_data *d){move_player(d,-1,0);}
-void	render_down(t_data *d){move_player(d,0,1);}

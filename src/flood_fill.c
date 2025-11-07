@@ -1,31 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 19:26:07 by mohifdi           #+#    #+#             */
+/*   Updated: 2025/11/07 19:52:26 by mohifdi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
-
-
-static char **copy_map(t_data *data)
-{
-	char **copy;
-	int i;
-
-	if (!data || !data->map)
-		ft_error("Error\ndata->map NULL in copy_map");
-
-	i = 0;
-	while (data->map[i])
-		i++;
-	copy = malloc(sizeof(char *) * (i + 1));
-	if (!copy)
-		ft_error("Error\nmalloc copy_map");
-	i = 0;
-	while (data->map[i])
-	{
-		copy[i] = ft_strdup(data->map[i]);
-		if (!copy[i])
-			ft_error("Error\nstrdup copy_map");
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
-}
 
 static t_pos	find_player(char **map)
 {
@@ -54,7 +39,6 @@ static t_pos	find_player(char **map)
 	return (pos);
 }
 
-
 static int	in_bounds(char **map, int x, int y)
 {
 	int	width;
@@ -71,13 +55,12 @@ static int	in_bounds(char **map, int x, int y)
 	return (1);
 }
 
-
 static void	fill(char **map, int x, int y)
 {
 	if (!in_bounds(map, x, y))
-		return;
+		return ;
 	if (map[y][x] == '1' || map[y][x] == 'V')
-		return;
+		return ;
 	map[y][x] = 'V';
 	fill(map, x + 1, y);
 	fill(map, x - 1, y);
@@ -117,10 +100,7 @@ int	check_path_valid(t_data *data)
 		return (0);
 	start = find_player(copy);
 	if (start.x == -1 || start.y == -1)
-	{
-		ft_error("Error\n No Player Found\n");
-		return (0);
-	}
+		print_err(2);
 	fill(copy, start.x, start.y);
 	valid = check_reachability(copy);
 	y = 0;
@@ -128,9 +108,6 @@ int	check_path_valid(t_data *data)
 		free(copy[y++]);
 	free(copy);
 	if (!valid)
-    {
-		ft_error("Error\nCollectible/Exit are unreachable.\n");
-        exit (-1);
-    }
-    return (valid);
+		print_err(1);
+	return (valid);
 }

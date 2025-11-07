@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 19:45:51 by mohifdi           #+#    #+#             */
+/*   Updated: 2025/11/07 19:34:51 by mohifdi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
 int	check_col(char *map_line, char wall, t_data *data)
@@ -15,7 +27,6 @@ int	check_col(char *map_line, char wall, t_data *data)
 	data->width = i;
 	return (1);
 }
-
 
 int	check_line(char *map_line, char wall)
 {

@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   render_mv2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 20:02:53 by mohifdi           #+#    #+#             */
-/*   Updated: 2025/11/07 20:02:54 by mohifdi          ###   ########.fr       */
+/*   Created: 2025/11/07 19:54:14 by mohifdi           #+#    #+#             */
+/*   Updated: 2025/11/07 19:54:17 by mohifdi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../so_long.h"
 
-char	*ft_strncpy(char *str, int nb)
+void	render_top(t_data *data)
 {
-	int		i;
-	char	*ret;
+	move_player(data, 0, -1);
+}
 
-	i = 0;
-	ret = (char *)malloc(sizeof(char) * (nb + 1));
-	if (ret == NULL)
-		return (NULL);
-	while (str[i] && i < nb)
-	{
-		ret[i] = str[i];
-		i++;
-	}
-	ret[i] = '\0';
-	return (ret);
+void	render_right(t_data *data)
+{
+	move_player(data, 1, 0);
+}
+
+void	render_left(t_data *data)
+{
+	move_player(data, -1, 0);
+}
+
+void	render_down(t_data *data)
+{
+	move_player(data, 0, 1);
 }

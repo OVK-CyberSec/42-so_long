@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohifdi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 20:02:53 by mohifdi           #+#    #+#             */
-/*   Updated: 2025/11/07 20:02:54 by mohifdi          ###   ########.fr       */
+/*   Created: 2025/09/04 17:31:43 by mohifdi           #+#    #+#             */
+/*   Updated: 2025/09/04 17:45:22 by mohifdi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
+#include <unistd.h>
+#include <stdarg.h>
+#include <stdint.h>
+#include <limits.h>
 
-char	*ft_strncpy(char *str, int nb)
+int	printf_format(char specifer, va_list ap);
+
+int	ft_printf(const char *str, ...)
 {
-	int		i;
-	char	*ret;
+	va_list		ap;
+	int			count;
 
-	i = 0;
-	ret = (char *)malloc(sizeof(char) * (nb + 1));
-	if (ret == NULL)
-		return (NULL);
-	while (str[i] && i < nb)
+	va_start(ap, str);
+	count = 0;
+	while ((*str))
 	{
-		ret[i] = str[i];
-		i++;
+		if (*str == '%')
+			count += printf_format(*(++str), ap);
+		else
+			count += write(1, str, 1);
+		str++;
 	}
-	ret[i] = '\0';
-	return (ret);
+	va_end(ap);
+	return (count);
 }
